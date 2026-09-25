@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardioGuard AI — Academic Cardiovascular Research Workstation</title>
+    <!-- Professional Sans Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="workstation-layout">
+        <!-- 1. FIXED LEFT SIDEBAR -->
+        <aside class="workstation-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand-mark">
+                    <i data-lucide="activity"></i>
+                </div>
+                <div>
+                    <div class="brand-name">CardioGuard <span>AI</span></div>
+                    <div class="brand-meta">Research Workstation</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section-label">Workstation Modules</div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-tab="prediction-tab">
+                    <i data-lucide="user-check"></i>
+                    <span>Risk Predictor</span>
+                </button>
+                <button class="nav-btn" data-tab="model-tab">
+                    <i data-lucide="cpu"></i>
+                    <span>Model Evaluation</span>
+                </button>
+                <button class="nav-btn" data-tab="eda-tab">
+                    <i data-lucide="bar-chart-2"></i>
+                    <span>Dataset &amp; EDA</span>
+                </button>
+                <button class="nav-btn" data-tab="about-tab">
+                    <i data-lucide="git-merge"></i>
+                    <span>Architecture</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sys-status">
+                    <span class="status-indicator-dot"></span>
+                    <span>Model: Operational</span>
+                </div>
+                <div class="sys-version">v1.0.0 &bull; Random Forest</div>
+            </div>
+        </aside>
+
+        <!-- 2. MAIN WORKSTATION CANVAS -->
+        <main class="workstation-main">
+            <!-- Top Workstation Header Bar -->
+            <header class="workstation-topbar">
+                <div class="topbar-context">
+                    <span class="institution-tag">Department of Computer Science &amp; Health Informatics</span>
+                    <span class="topbar-divider">/</span>
+                    <span class="sub-context">Clinical AI Research &bull; 68,554 Records</span>
+                </div>
+                <div class="topbar-actions">
+                    <!-- Preset Profile Dropdown -->
+                    <div class="preset-dropdown-wrap">
+                        <button type="button" class="btn btn-secondary btn-sm" id="presetBtn">
+                            <i data-lucide="folder-open"></i> Reference Profiles <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="preset-menu" id="presetMenu">
+                            <div class="preset-menu-header">Select Clinical Subject</div>
+                            <div class="preset-item" data-sample="0">
+                                <strong>Arjun Patel</strong>
+                                <span>Low Risk Baseline &bull; Age 32 &bull; Optimal Hemodynamics</span>
+                            </div>
+                            <div class="preset-item" data-sample="1">
+                                <strong>Priya Sharma</strong>
+                                <span>Moderate Risk Baseline &bull; Age 50 &bull; Elevated Systolic</span>
+                            </div>
+                            <div class="preset-item" data-sample="2">
+                                <strong>Ramesh Verma</strong>
+                                <span>High Risk Baseline &bull; Age 62 &bull; Stage 2 HTN &amp; Lipids</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="workstation-content-body">
+                
+                <!-- TAB 1: PREDICTION (VERTICAL RESEARCH WORKFLOW) -->
+                <section id="prediction-tab" class="tab-pane active">
+                    <div class="page-header">
+                        <h1 class="page-title">Patient Risk Assessment</h1>
+                        <p class="page-subtitle">Evaluate multi-variable cardiovascular risk using the trained Random Forest classifier.</p>
+                    </div>
+
+                    <form id="predictionForm" class="research-form">
+                        <!-- SECTION 01: PATIENT PROFILE -->
+                        <div class="form-section">
+                            <div class="section-meta">
+                                <span class="section-idx">01</span>
+                                <div>
+                                    <h2 class="section-heading">Patient Profile</h2>
+                                    <span class="section-caption">Demographic and anthropometric baseline measurements</span>
+                                </div>
+                            </div>
+                            <div class="inputs-row-4">
+                                <div class="field-item">
+                                    <label for="age_years">Age</label>
+                                    <div class="input-affix-wrap">
+                                        <input type="number" id="age_years" name="age_years" min="18" max="100" value="52" required>
+                                        <span class="input-unit">years</span>
+                                    </div>
+                                </div>
+                                <div class="field-item">
+                                    <label for="gender">Biological Gender</label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="2">Male (Code 2)</option>
+                                        <option value="1">Female (Code 1)</option>
+                                    </select>
+                                </div>
+                                <div class="field-item">
+                                    <label for="height">Height</label>
+                                    <div class="input-affix-wrap">
+                                        <input type="number" id="height" name="height" min="100" max="230" value="168" required>
+                                        <span class="input-unit">cm</span>
+                                    </div>
+                                </div>
+                                <div class="field-item">
+                                    <label for="weight">Weight</label>
+                                    <div class="input-affix-wrap">
+                                        <input type="number" id="weight" name="weight" step="0.1" min="30" max="220" value="75.0" required>
+                                        <span class="input-unit">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 02: CLINICAL MEASUREMENTS -->
+                        <div class="form-section">
+                            <div class="section-meta">
+                                <span class="section-idx">02</span>
+                                <div>
+                                    <h2 class="section-heading">Clinical Measurements</h2>
+                                    <span class="section-caption">Arterial hemodynamics and serum biochemistry</span>
+                                </div>
+                            </div>
+                            <div class="inputs-row-4">
+                                <div class="field-item">
+                                    <label for="ap_hi">Systolic Blood Pressure</label>
+                                    <div class="input-affix-wrap">
+                                        <input type="number" id="ap_hi" name="ap_hi" min="80" max="220" value="135" required>
+                                        <span class="input-unit">mmHg</span>
+                                    </div>
+                                </div>
+                                <div class="field-item">
+                                    <label for="ap_lo">Diastolic Blood Pressure</label>
+                                    <div class="input-affix-wrap">
+                                        <input type="number" id="ap_lo" name="ap_lo" min="50" max="140" value="85" required>
+                                        <span class="input-unit">mmHg</span>
+                                    </div>
+                                </div>
+                                <div class="field-item">
+                                    <label for="cholesterol">Serum Cholesterol</label>
+                                    <select id="cholesterol" name="cholesterol" required>
+                                        <option value="1">Normal (&lt;200 mg/dL)</option>
+                                        <option value="2">Above Normal (200-239 mg/dL)</option>
+                                        <option value="3">Well Above Normal (&ge;240 mg/dL)</option>
+                                    </select>
+                                </div>
+                                <div class="field-item">
+                                    <label for="gluc">Fasting Glucose</label>
+                                    <select id="gluc" name="gluc" required>
+                                        <option value="1">Normal (&lt;100 mg/dL)</option>
+                                        <option value="2">Above Normal (100-125 mg/dL)</option>
+                                        <option value="3">High (&ge;126 mg/dL)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 03: LIFESTYLE PROFILE -->
+                        <div class="form-section">
+                            <div class="section-meta">
+                                <span class="section-idx">03</span>
+                                <div>
+                                    <h2 class="section-heading">Lifestyle Profile</h2>
+                                    <span class="section-caption">Behavioral risk factors and physical activity status</span>
+                                </div>
+                            </div>
+                            <div class="inputs-row-3">
+                                <div class="field-item">
+                                    <label for="smoke">Tobacco Smoking</label>
+                                    <select id="smoke" name="smoke" required>
+                                        <option value="0">Non-Smoker</option>
+                                        <option value="1">Active Smoker</option>
+                                    </select>
+                                </div>
+                                <div class="field-item">
+                                    <label for="alco">Alcohol Intake</label>
+                                    <select id="alco" name="alco" required>
+                                        <option value="0">No / Minimal Consumption</option>
+                                        <option value="1">Regular Consumption</option>
+                                    </select>
+                                </div>
+                                <div class="field-item">
+                                    <label for="active">Physical Activity</label>
+                                    <select id="active" name="active" required>
+                                        <option value="1">Active / Regular Exercise</option>
+                                        <option value="0">Sedentary Lifestyle</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 04: LIVE DERIVED MEASUREMENTS STRIP -->
+                        <div class="derived-strip-section">
+                            <div class="derived-strip-label">
+                                <i data-lucide="calculator"></i>
+                                <span>Derived Biometrics</span>
+                            </div>
+                            <div class="derived-strip-values">
+                                <div class="derived-strip-item">
+                                    <span class="strip-key">Live BMI:</span>
+                                    <strong id="liveBmi" class="strip-val">26.6</strong>
+                                    <span class="strip-unit">kg/m²</span>
+                                </div>
+                                <div class="derived-strip-item">
+                                    <span class="strip-key">Live Pulse Pressure:</span>
+                                    <strong id="livePulse" class="strip-val">50</strong>
+                                    <span class="strip-unit">mmHg</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-workstation-btn" id="submitBtn">
+                                <i data-lucide="play"></i> Run Assessment
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- SECTION 05: RISK ASSESSMENT PANEL (BELOW INPUTS) -->
+                    <div class="assessment-container" id="resultContainer">
+                        <!-- Empty State -->
+                        <div class="assessment-empty" id="emptyState">
+                            <div class="empty-icon-wrap">
+                                <i data-lucide="clipboard-list"></i>
+                            </div>
+                            <div class="empty-text">
+                                <h3>Assessment Results Pending</h3>
+                                <p>Review the patient profile above and select <strong>Run Assessment</strong> or load a reference profile to compute the cardiovascular risk probability.</p>
+                            </div>
+                        </div>
+
+                        <!-- Populated Prediction View -->
+                        <div class="assessment-view hidden" id="predictionView">
+                            <div class="assessment-header-banner">
+                                <div class="assessment-main-stat">
+                                    <div class="prob-box" id="probCircle">
+                                        <div class="prob-number" id="probNumber">0%</div>
+                                        <div class="prob-subtext">DISEASE PROBABILITY</div>
+                                    </div>
+                                    <div class="risk-summary-text">
+                                        <div class="risk-badge-row">
+                                            <span class="status-badge" id="riskBadge">Awaiting Input</span>
+                                        </div>
+                                        <h3 class="diagnosis-title" id="diagnosisText">Cardiovascular Risk Assessment</h3>
+                                        <p class="advice-para" id="adviceText">Clinical analysis recommendation will appear here.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="assessment-body-grid">
+                                <!-- Contributing Risk Factors -->
+                                <div class="factors-card">
+                                    <div class="card-subtitle-small">
+                                        <i data-lucide="alert-circle"></i>
+                                        <span>Identified Clinical Risk Factors</span>
+                                    </div>
+                                    <ul class="factors-list" id="factorsList"></ul>
+                                </div>
+
+                                <!-- Engineered Hemodynamics -->
+                                <div class="hemodynamics-card">
+                                    <div class="card-subtitle-small">
+                                        <i data-lucide="sliders"></i>
+                                        <span>Engineered Hemodynamic Features</span>
+                                    </div>
+                                    <div class="hemo-metrics-list">
+                                        <div class="hemo-item">
+                                            <span class="hemo-label">Body Mass Index (BMI)</span>
+                                            <span class="hemo-value" id="resBmi">--</span>
+                                        </div>
+                                        <div class="hemo-item">
+                                            <span class="hemo-label">Pulse Pressure (Arterial Stiffness)</span>
+                                            <span class="hemo-value" id="resPulse">-- mmHg</span>
+                                        </div>
+                                        <div class="hemo-item">
+                                            <span class="hemo-label">Mean Arterial Pressure (MAP)</span>
+                                            <span class="hemo-value" id="resMap">-- mmHg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: MODEL EVALUATION -->
+                <section id="model-tab" class="tab-pane">
+                    <div class="page-header">
+                        <h1 class="page-title">Model Performance &amp; Evaluation Matrix</h1>
+                        <p class="page-subtitle">Cross-validated statistical metrics for the serialized Random Forest ensemble model.</p>
+                    </div>
+
+                    <!-- Horizontal Typographic Evaluation Strip -->
+                    <div class="eval-hero-strip">
+                        <div class="eval-hero-item">
+                            <span class="eval-hero-label">Holdout Accuracy</span>
+                            <div class="eval-hero-value" id="mAccuracy">73.34%</div>
+                            <span class="eval-hero-caption">Test Split (13,711 samples)</span>
+                        </div>
+                        <div class="eval-hero-divider"></div>
+                        <div class="eval-hero-item">
+                            <span class="eval-hero-label">ROC-AUC Score</span>
+                            <div class="eval-hero-value" id="mRocAuc">0.8012</div>
+                            <span class="eval-hero-caption">Discrimination power</span>
+                        </div>
+                        <div class="eval-hero-divider"></div>
+                        <div class="eval-hero-item">
+                            <span class="eval-hero-label">Precision</span>
+                            <div class="eval-hero-value" id="mPrecision">75.86%</div>
+                            <span class="eval-hero-caption">Positive predictive value</span>
+                        </div>
+                        <div class="eval-hero-divider"></div>
+                        <div class="eval-hero-item">
+                            <span class="eval-hero-label">Recall / Sensitivity</span>
+                            <div class="eval-hero-value" id="mRecall">67.60%</div>
+                            <span class="eval-hero-caption">True positive rate</span>
+                        </div>
+                    </div>
+
+                    <div class="eval-details-grid">
+                        <div class="spec-panel">
+                            <h3 class="panel-heading"><i data-lucide="sliders"></i> Production Classifier Specifications</h3>
+                            <p class="panel-sub">Trained hyperparameters and dataset validation split parameters</p>
+                            <table class="academic-spec-table">
+                                <tbody>
+                                    <tr><td>Active Model</td><td id="mName">Random Forest Classifier (Tuned)</td></tr>
+                                    <tr><td>Hyperparameter Optimization</td><td>5-Fold Stratified GridSearchCV</td></tr>
+                                    <tr><td>Training Cohort Volume</td><td>54,843 Patient Records</td></tr>
+                                    <tr><td>Testing Cohort Volume</td><td>13,711 Patient Records</td></tr>
+                                    <tr><td>Feature Standardization</td><td>StandardScaler (Z-Score)</td></tr>
+                                    <tr><td>Scratch Baseline Parity</td><td>Scratch Logistic Regression matched Sklearn (~72.8%)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="feature-panel">
+                            <h3 class="panel-heading"><i data-lucide="database"></i> Input Vector Space (14 Dimensions)</h3>
+                            <p class="panel-sub">Standardized features passed into the inference model pipeline</p>
+                            <div class="feature-tags-grid" id="featureTags"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: DATASET & EDA -->
+                <section id="eda-tab" class="tab-pane">
+                    <div class="page-header">
+                        <h1 class="page-title">Dataset &amp; Exploratory Analysis</h1>
+                        <p class="page-subtitle">Distributional and hemodynamic properties computed across the cardiovascular cohort.</p>
+                    </div>
+
+                    <!-- Cohort Overview Panel -->
+                    <div class="eda-overview-panel">
+                        <div class="eda-stat-callout">
+                            <span class="callout-number" id="edaRecordCount">68,554</span>
+                            <span class="callout-label">Cleaned Records</span>
+                        </div>
+                        <div class="eda-overview-text">
+                            <h3 class="eda-overview-heading">Cardiovascular Patient Cohort (Kaggle)</h3>
+                            <p id="edaCardDesc">Insights computed across 68,554 cleaned cardiovascular records with 50-50 target balance and physiological anomaly filtering.</p>
+                        </div>
+                    </div>
+
+                    <div class="eda-sections-grid">
+                        <!-- Cholesterol Distribution -->
+                        <div class="eda-report-card">
+                            <h3 class="report-card-heading">
+                                <i data-lucide="droplet"></i>
+                                <span>Disease Prevalence by Cholesterol Tier</span>
+                            </h3>
+                            <p class="report-card-desc">Correlation between serum cholesterol categories and cardiovascular disease incidence.</p>
+                            <div class="academic-bar-group">
+                                <div class="academic-bar-item">
+                                    <div class="bar-meta-row">
+                                        <span class="bar-label">Level 1: Normal (&lt;200 mg/dL)</span>
+                                        <span class="bar-num">43.5%</span>
+                                    </div>
+                                    <div class="academic-track">
+                                        <div class="academic-fill fill-teal" id="chol1Bar" style="width: 43.5%;">43.5%</div>
+                                    </div>
+                                </div>
+                                <div class="academic-bar-item">
+                                    <div class="bar-meta-row">
+                                        <span class="bar-label">Level 2: Above Normal (200-239 mg/dL)</span>
+                                        <span class="bar-num">59.6%</span>
+                                    </div>
+                                    <div class="academic-track">
+                                        <div class="academic-fill fill-amber" id="chol2Bar" style="width: 59.6%;">59.6%</div>
+                                    </div>
+                                </div>
+                                <div class="academic-bar-item">
+                                    <div class="bar-meta-row">
+                                        <span class="bar-label">Level 3: Well Above Normal (&ge;240 mg/dL)</span>
+                                        <span class="bar-num">76.2%</span>
+                                    </div>
+                                    <div class="academic-track">
+                                        <div class="academic-fill fill-crimson" id="chol3Bar" style="width: 76.2%;">76.2%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blood Pressure Contrast -->
+                        <div class="eda-report-card">
+                            <h3 class="report-card-heading">
+                                <i data-lucide="activity"></i>
+                                <span>Systolic Blood Pressure Contrast</span>
+                            </h3>
+                            <p class="report-card-desc">Mean arterial systolic pressure disparity between healthy and disease cohorts.</p>
+                            <div class="bp-academic-contrast">
+                                <div class="bp-academic-card bp-healthy">
+                                    <span class="bp-cohort-tag">Healthy Cohort</span>
+                                    <div class="bp-big-val" id="edaHealthyBp">119.6 mmHg</div>
+                                    <span class="bp-cohort-desc">Optimal baseline range</span>
+                                </div>
+                                <div class="bp-academic-card bp-diseased">
+                                    <span class="bp-cohort-tag">Disease Cohort</span>
+                                    <div class="bp-big-val" id="edaDiseaseBp">133.8 mmHg</div>
+                                    <span class="bp-cohort-desc">+14.2 mmHg elevation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: ARCHITECTURE (HORIZONTAL PIPELINE FLOW) -->
+                <section id="about-tab" class="tab-pane">
+                    <div class="page-header">
+                        <h1 class="page-title">System Pipeline Architecture</h1>
+                        <p class="page-subtitle">End-to-end data processing, feature engineering, model training, and REST API deployment.</p>
+                    </div>
+
+                    <div class="pipeline-horizontal-wrapper">
+                        <div class="pipeline-flow">
+                            <div class="pipeline-node">
+                                <div class="node-badge">STEP 01</div>
+                                <div class="node-title">Data Ingestion</div>
+                                <p class="node-desc">Handled 70,000 raw patient records, identified physiological BP anomalies and verified 50-50 target balance.</p>
+                            </div>
+                            <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                            <div class="pipeline-node">
+                                <div class="node-badge">STEP 02</div>
+                                <div class="node-title">Outlier Filtering</div>
+                                <p class="node-desc">Filtered ap_hi &gt; ap_lo, removed impossible body metrics, computed BMI, and standardized features.</p>
+                            </div>
+                            <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                            <div class="pipeline-node">
+                                <div class="node-badge">STEP 03</div>
+                                <div class="node-title">Scratch Baseline</div>
+                                <p class="node-desc">Implemented Logistic Regression from pure NumPy (Sigmoid, Log Loss, Gradient Descent) without Sklearn.</p>
+                            </div>
+                            <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                            <div class="pipeline-node">
+                                <div class="node-badge">STEP 04</div>
+                                <div class="node-title">Hyperparameter Tuning</div>
+                                <p class="node-desc">Tuned Random Forest via GridSearchCV across 5-Folds to achieve 0.8012 ROC-AUC.</p>
+                            </div>
+                            <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                            <div class="pipeline-node">
+                                <div class="node-badge">STEP 05</div>
+                                <div class="node-title">API Deployment</div>
+                                <p class="node-desc">Serialized models via Joblib with CORS-enabled JSON endpoints for seamless client integration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

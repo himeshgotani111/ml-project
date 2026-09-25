@@ -1,0 +1,1319 @@
+/* ==========================================================================
+   CardioGuard AI — Academic Cardiovascular Research Workstation
+   Layout: Fixed Left Sidebar + Main Workstation Canvas
+   Aesthetic: University Medical Informatics / Clinical Research Workstation
+   Palette: Warm Off-White Canvas (#F7F8FA), Deep Academic Navy (#0F172A),
+            Clinical Teal Accent (#0D9488), Dark Slate Text (#1E293B, #334155),
+            Crisp White Surfaces (#FFFFFF), Subtle Slate Borders (#E2E8F0)
+   ========================================================================== */
+
+:root {
+    /* Brand & Accent Colors */
+    --navy-950: #090d16;
+    --navy-900: #0f172a;
+    --navy-800: #1e293b;
+    --navy-700: #334155;
+    --navy-600: #475569;
+
+    --teal-700: #0f766e;
+    --teal-600: #0d9488;
+    --teal-500: #14b8a6;
+    --teal-100: #ccfbf1;
+    --teal-50:  #f0fdfa;
+
+    /* Canvas & Surfaces */
+    --canvas-bg:       #f7f8fa;
+    --surface-white:   #ffffff;
+    --surface-sidebar: #ffffff;
+    --surface-subtle:  #f1f5f9;
+    --surface-muted:   #e2e8f0;
+
+    /* Borders */
+    --border-light:    #e2e8f0;
+    --border-medium:   #cbd5e1;
+    --border-active:   #0d9488;
+
+    /* Typography Colors */
+    --text-primary:    #0f172a;
+    --text-secondary:  #334155;
+    --text-muted:      #64748b;
+    --text-light:      #94a3b8;
+
+    /* Clinical Status */
+    --status-low:      #059669;
+    --status-low-bg:   #ecfdf5;
+    --status-low-bdr:  #a7f3d0;
+
+    --status-mod:      #d97706;
+    --status-mod-bg:   #fffbeb;
+    --status-mod-bdr:  #fde68a;
+
+    --status-high:     #dc2626;
+    --status-high-bg:  #fef2f2;
+    --status-high-bdr: #fecaca;
+
+    /* Spacing & Radii */
+    --sidebar-width:   250px;
+    --topbar-height:   52px;
+    --radius-sm:       4px;
+    --radius-md:       8px;
+    --radius-lg:       12px;
+
+    /* Shadows */
+    --shadow-subtle:   0 1px 2px 0 rgba(15, 23, 42, 0.04);
+    --shadow-card:     0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+    --shadow-dropdown: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+
+    /* Fonts */
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    background-color: var(--canvas-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* WORKSTATION ROOT LAYOUT: SIDEBAR + MAIN CANVAS */
+.workstation-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ==========================================================================
+   1. FIXED LEFT SIDEBAR
+   ========================================================================== */
+.workstation-sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--surface-sidebar);
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.sidebar-header {
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-brand-mark {
+    width: 38px;
+    height: 38px;
+    background-color: var(--navy-900);
+    color: var(--teal-500);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sidebar-brand-mark i {
+    width: 20px;
+    height: 20px;
+}
+
+.brand-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+}
+
+.brand-name span {
+    color: var(--teal-600);
+}
+
+.brand-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.sidebar-section-label {
+    padding: 18px 18px 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 10px;
+    flex: 1;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--navy-700);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.nav-btn i {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--surface-subtle);
+    color: var(--navy-900);
+}
+
+.nav-btn:hover i {
+    color: var(--teal-600);
+}
+
+.nav-btn.active {
+    background-color: var(--teal-50);
+    color: var(--teal-700);
+    border-color: var(--teal-100);
+    font-weight: 700;
+}
+
+.nav-btn.active i {
+    color: var(--teal-600);
+}
+
+.sidebar-footer {
+    padding: 16px 18px;
+    border-top: 1px solid var(--border-light);
+    background-color: #fafbfc;
+}
+
+.sys-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--status-low);
+}
+
+.status-indicator-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--status-low);
+    border-radius: 50%;
+}
+
+.sys-version {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   2. MAIN WORKSTATION CANVAS
+   ========================================================================== */
+.workstation-main {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--canvas-bg);
+}
+
+/* Top Institutional Context Bar */
+.workstation-topbar {
+    height: var(--topbar-height);
+    background-color: var(--surface-white);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.topbar-context {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+
+.institution-tag {
+    font-weight: 600;
+    color: var(--navy-800);
+}
+
+.topbar-divider {
+    color: var(--border-medium);
+}
+
+.sub-context {
+    color: var(--text-muted);
+}
+
+/* Preset Dropdown Component */
+.preset-dropdown-wrap {
+    position: relative;
+}
+
+.preset-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 320px;
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-dropdown);
+    z-index: 200;
+    display: none;
+    overflow: hidden;
+}
+
+.preset-menu.show {
+    display: block;
+}
+
+.preset-menu-header {
+    padding: 10px 14px;
+    background-color: var(--surface-subtle);
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.preset-item {
+    padding: 11px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: background-color 0.15s ease;
+}
+
+.preset-item:last-child {
+    border-bottom: none;
+}
+
+.preset-item strong {
+    font-size: 0.86rem;
+    color: var(--navy-900);
+}
+
+.preset-item span {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.preset-item:hover {
+    background-color: var(--teal-50);
+}
+
+.preset-item:hover strong {
+    color: var(--teal-700);
+}
+
+/* Content Body Container */
+.workstation-content-body {
+    padding: 32px;
+    max-width: 1160px;
+    width: 100%;
+}
+
+/* Tab Switching Control */
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.18s ease-in-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page Headers */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   3. TAB 1: PREDICTOR — VERTICAL RESEARCH WORKFLOW
+   ========================================================================== */
+.research-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Clean Editorial Form Section Card */
+.form-section {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.section-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.section-idx {
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--teal-600);
+    background-color: var(--teal-50);
+    border: 1px solid var(--teal-100);
+    padding: 2px 7px;
+    border-radius: var(--radius-sm);
+}
+
+.section-heading {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    display: inline-block;
+}
+
+.section-caption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Grids for inputs */
+.inputs-row-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.inputs-row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .inputs-row-4, .inputs-row-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .inputs-row-4, .inputs-row-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field-item label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--navy-700);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.input-affix-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-affix-wrap input {
+    width: 100%;
+    padding-right: 48px;
+}
+
+.input-unit {
+    position: absolute;
+    right: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+.field-item input,
+.field-item select {
+    background-color: #ffffff;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--navy-900);
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.field-item input:focus,
+.field-item select:focus {
+    border-color: var(--teal-600);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+/* Real-time Derived Strip (Section 04) */
+.derived-strip-section {
+    background-color: var(--navy-900);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    box-shadow: var(--shadow-card);
+}
+
+.derived-strip-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--teal-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.derived-strip-label i {
+    width: 16px;
+    height: 16px;
+}
+
+.derived-strip-values {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.derived-strip-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.strip-key {
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+.strip-val {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.strip-unit {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Assessment Trigger Button */
+.submit-workstation-btn {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: var(--teal-600);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.submit-workstation-btn:hover {
+    background-color: var(--teal-500);
+    transform: translateY(-1px);
+}
+
+.submit-workstation-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* SECTION 05: RISK ASSESSMENT PANEL (BELOW INPUTS) */
+.assessment-container {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    margin-top: 6px;
+}
+
+/* Empty State */
+.assessment-empty {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    border: 1px dashed var(--border-medium);
+    border-radius: var(--radius-md);
+    background-color: #fafbfc;
+}
+
+.empty-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background-color: var(--surface-subtle);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    flex-shrink: 0;
+}
+
+.empty-icon-wrap i {
+    width: 24px;
+    height: 24px;
+}
+
+.empty-text h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: 2px;
+}
+
+.empty-text p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Active Prediction View */
+.assessment-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+.assessment-header-banner {
+    background-color: #fafbfc;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+}
+
+.assessment-main-stat {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+/* Probability block preserving ID probCircle */
+.prob-box {
+    padding: 16px 24px;
+    background-color: #ffffff;
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    text-align: center;
+    min-width: 140px;
+    box-shadow: var(--shadow-subtle);
+    transition: border-color 0.3s ease;
+}
+
+.prob-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    line-height: 1;
+}
+
+.prob-subtext {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.risk-summary-text {
+    flex: 1;
+}
+
+.risk-badge-row {
+    margin-bottom: 6px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background-color: var(--surface-subtle);
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+}
+
+.diagnosis-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    margin-bottom: 4px;
+}
+
+.advice-para {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Assessment Body Grid */
+.assessment-body-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 20px;
+}
+
+@media (max-width: 850px) {
+    .assessment-body-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.factors-card, .hemodynamics-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+}
+
+.card-subtitle-small {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--navy-700);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.card-subtitle-small i {
+    width: 15px;
+    height: 15px;
+    color: var(--teal-600);
+}
+
+.factors-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.factors-list li {
+    font-size: 0.84rem;
+    color: var(--navy-900);
+    background-color: #fafbfc;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--teal-600);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.factors-list li i {
+    width: 14px;
+    height: 14px;
+    color: var(--teal-600);
+    flex-shrink: 0;
+}
+
+.hemo-metrics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hemo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #fafbfc;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
+.hemo-label {
+    color: var(--text-muted);
+}
+
+.hemo-value {
+    font-weight: 700;
+    color: var(--navy-900);
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   4. TAB 2: MODEL EVALUATION WORKSTATION LAYOUT
+   ========================================================================== */
+.eval-hero-strip {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.eval-hero-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.eval-hero-label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.eval-hero-value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    line-height: 1.1;
+}
+
+.eval-hero-caption {
+    font-size: 0.74rem;
+    color: var(--teal-700);
+    font-weight: 500;
+    margin-top: 3px;
+}
+
+.eval-hero-divider {
+    width: 1px;
+    height: 48px;
+    background-color: var(--border-light);
+}
+
+@media (max-width: 768px) {
+    .eval-hero-divider {
+        display: none;
+    }
+}
+
+.eval-details-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .eval-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.spec-panel, .feature-panel {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.panel-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.panel-heading i {
+    width: 18px;
+    height: 18px;
+    color: var(--teal-600);
+}
+
+.panel-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.academic-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.academic-spec-table tr {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.academic-spec-table tr:last-child {
+    border-bottom: none;
+}
+
+.academic-spec-table td {
+    padding: 10px 4px;
+    font-size: 0.85rem;
+}
+
+.academic-spec-table td:first-child {
+    font-weight: 600;
+    color: var(--navy-700);
+}
+
+.academic-spec-table td:last-child {
+    text-align: right;
+    font-weight: 700;
+    color: var(--navy-900);
+}
+
+.feature-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.tag {
+    background-color: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    color: var(--navy-800);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   5. TAB 3: DATASET & EDA RESEARCH REPORT LAYOUT
+   ========================================================================== */
+.eda-overview-panel {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.eda-stat-callout {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-light);
+    padding-right: 32px;
+    flex-shrink: 0;
+}
+
+.callout-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--teal-700);
+    line-height: 1;
+}
+
+.callout-label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.eda-overview-heading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: 4px;
+}
+
+.eda-overview-text p {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.eda-sections-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 850px) {
+    .eda-sections-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.eda-report-card {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.report-card-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.report-card-heading i {
+    width: 18px;
+    height: 18px;
+    color: var(--teal-600);
+}
+
+.report-card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+.academic-bar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bar-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy-800);
+    margin-bottom: 4px;
+}
+
+.academic-track {
+    background-color: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    height: 24px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.academic-fill {
+    height: 100%;
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    transition: width 0.5s ease;
+}
+
+.fill-teal    { background-color: var(--teal-600); }
+.fill-amber   { background-color: #d97706; }
+.fill-crimson { background-color: #dc2626; }
+
+.bp-academic-contrast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.bp-academic-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border: 1px solid var(--border-light);
+}
+
+.bp-healthy {
+    background-color: var(--status-low-bg);
+    border-color: var(--status-low-bdr);
+}
+
+.bp-diseased {
+    background-color: var(--status-high-bg);
+    border-color: var(--status-high-bdr);
+}
+
+.bp-cohort-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.bp-healthy .bp-cohort-tag { color: var(--status-low); }
+.bp-diseased .bp-cohort-tag { color: var(--status-high); }
+
+.bp-big-val {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.bp-healthy .bp-big-val { color: var(--status-low); }
+.bp-diseased .bp-big-val { color: var(--status-high); }
+
+.bp-cohort-desc {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   6. TAB 4: ARCHITECTURE — HORIZONTAL PIPELINE FLOW
+   ========================================================================== */
+.pipeline-horizontal-wrapper {
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-card);
+    overflow-x: auto;
+}
+
+.pipeline-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    min-width: 900px;
+}
+
+.pipeline-node {
+    flex: 1;
+    background-color: #fafbfc;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.pipeline-node:hover {
+    background-color: #ffffff;
+    box-shadow: var(--shadow-card);
+    border-color: var(--teal-600);
+}
+
+.node-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--teal-700);
+    background-color: var(--teal-50);
+    border: 1px solid var(--teal-100);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+}
+
+.node-title {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--navy-900);
+}
+
+.node-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.flow-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border-medium);
+}
+
+.flow-connector i {
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   BUTTONS, UTILITIES & ANIMATIONS
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.btn-secondary {
+    background-color: var(--surface-white);
+    color: var(--navy-800);
+    border-color: var(--border-medium);
+}
+
+.btn-secondary:hover {
+    background-color: var(--surface-subtle);
+    border-color: var(--navy-700);
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+}
+
+.hidden { display: none !important; }
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE BEHAVIOR
+   ========================================================================== */
+@media (max-width: 820px) {
+    .workstation-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+    }
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    .sidebar-footer {
+        display: none;
+    }
+    .workstation-layout {
+        flex-direction: column;
+    }
+    .workstation-main {
+        margin-left: 0;
+    }
+    .workstation-content-body {
+        padding: 20px 16px;
+    }
+}
